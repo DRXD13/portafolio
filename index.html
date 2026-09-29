@@ -1,0 +1,1152 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Dangelo Retis Cabrera · Portafolio</title>
+    <meta name="description" content="Dangelo Retis Cabrera, estudiante de Ingeniería de Sistemas: desarrollo full stack (JavaScript, PHP, Java, C#), bases de datos SQL y NoSQL, automatización con IA y soporte IT. Proyectos de planillas de RR. HH. y tareo.">
+    <meta name="author" content="Dangelo Retis Cabrera">
+
+    <script>
+      // Antes de pintar: aplica el tema guardado (evita el parpadeo) y activa las animaciones de entrada
+      (function () {
+        const r = document.documentElement;
+        r.classList.add('js');
+        try {
+          const t = localStorage.getItem('tema');
+          if (t === 'dark' || t === 'light') r.dataset.theme = t;
+        } catch (e) {}
+      })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Los colores salen de variables CSS para que el modo claro/oscuro funcione sin prefijos dark:
+      const v = (n) => `rgb(var(--${n}) / <alpha-value>)`;
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              bg: v('bg'), surface: v('surface'), sunk: v('sunk'),
+              ink: v('ink'), muted: v('muted'), line: v('line'),
+              accent: v('accent'), 'accent-ink': v('accent-ink'), mark: v('mark'), neg: v('neg'),
+            },
+            fontFamily: {
+              display: ['"Schibsted Grotesk"', 'system-ui', 'sans-serif'],
+              sans: ['"IBM Plex Sans"', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+              mono: ['"IBM Plex Mono"', 'ui-monospace', 'Consolas', 'monospace'],
+            },
+            maxWidth: { page: '72rem' },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Paleta (canales RGB): verde pizarra + teal de acento + ocre para resaltar cifras */
+      :root {
+        --bg: 244 247 246;       /* #F4F7F6 */
+        --surface: 255 255 255;
+        --sunk: 233 239 237;     /* #E9EFED */
+        --ink: 20 32 28;         /* #14201C */
+        --muted: 88 106 100;     /* #586A64 */
+        --line: 214 224 220;     /* #D6E0DC */
+        --accent: 15 110 92;     /* #0F6E5C */
+        --accent-ink: 255 255 255;
+        --mark: 176 124 10;      /* #B07C0A */
+        --neg: 168 58 50;        /* #A83A32 */
+        color-scheme: light;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: 13 20 18; --surface: 21 31 28; --sunk: 27 40 36;
+          --ink: 226 236 232; --muted: 150 170 163; --line: 44 60 55;
+          --accent: 60 194 162; --accent-ink: 8 26 21; --mark: 232 184 74; --neg: 236 130 118;
+          color-scheme: dark;
+        }
+      }
+
+      :root[data-theme="dark"] {
+        --bg: 13 20 18; --surface: 21 31 28; --sunk: 27 40 36;
+        --ink: 226 236 232; --muted: 150 170 163; --line: 44 60 55;
+        --accent: 60 194 162; --accent-ink: 8 26 21; --mark: 232 184 74; --neg: 236 130 118;
+        color-scheme: dark;
+      }
+
+      html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+      body { background: rgb(var(--bg)); color: rgb(var(--ink)); }
+      h1, h2, h3 { text-wrap: balance; }
+      .tnum { font-variant-numeric: tabular-nums; }
+      .eyebrow {
+        font-family: "IBM Plex Mono", ui-monospace, monospace;
+        font-size: .75rem;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        color: rgb(var(--accent));
+      }
+
+      /* El atributo hidden debe ganar siempre a utilidades como .grid o .flex */
+      [hidden] { display: none !important; }
+
+      /* Visor de capturas: oculto hasta que se abre una imagen */
+      #lightbox { display: none; }
+      #lightbox.is-open { display: grid; }
+
+      /* Contenedor de captura: el marcador queda debajo de la imagen y se ve si esta no carga */
+      .shot {
+        position: relative;
+        overflow: hidden;
+        max-width: 100%;
+        background: rgb(var(--sunk));
+        border: 1px solid rgb(var(--line));
+      }
+      .shot img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top left;
+      }
+      .shot .ph {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-content: center;
+        gap: .35rem;
+        padding: 1rem;
+        text-align: center;
+        color: rgb(var(--muted));
+        background-image: repeating-linear-gradient(135deg, rgb(var(--line) / .55) 0 1px, transparent 1px 12px);
+      }
+      .shot.has-img .ph { display: none; }
+      .shot.has-img { cursor: zoom-in; }
+
+      /* Cursores personalizados (si el archivo no carga, el navegador usa el de respaldo) */
+      body { cursor: url('assets/cursor-normal.svg') 5 4, auto; }
+      a, button, input, select, textarea { cursor: url('assets/cursor-pointer.svg') 16 16, pointer; }
+
+      /* Animación de entrada: solo se oculta si hay JS; el hero entra al cargar y el resto al hacer scroll */
+      .js .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity .8s cubic-bezier(.2, .7, .2, 1), transform .8s cubic-bezier(.2, .7, .2, 1);
+        transition-delay: var(--d, 0ms);
+      }
+      .js .reveal.is-in { opacity: 1; transform: none; }
+
+      /* Fondo del hero: halo de acento y retícula tenue que se desvanece hacia abajo */
+      .hero-bg { position: relative; isolation: isolate; overflow: hidden; }
+      .hero-bg::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background:
+          radial-gradient(60rem 28rem at 78% -8%, rgb(var(--accent) / .16), transparent 70%),
+          radial-gradient(40rem 22rem at 5% 10%, rgb(var(--mark) / .07), transparent 70%);
+      }
+      .hero-bg::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background-image:
+          linear-gradient(rgb(var(--line) / .5) 1px, transparent 1px),
+          linear-gradient(90deg, rgb(var(--line) / .5) 1px, transparent 1px);
+        background-size: 48px 48px;
+        -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 30%, transparent 75%);
+        mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 30%, transparent 75%);
+      }
+
+      /* Punto de "disponible" con pulso suave */
+      .pulse { position: relative; }
+      .pulse::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 9999px;
+        background: inherit;
+        animation: pulse 2.2s ease-out infinite;
+      }
+      @keyframes pulse { from { transform: scale(1); opacity: .6; } to { transform: scale(2.6); opacity: 0; } }
+
+      /* Cabecera: gana sombra al hacer scroll */
+      header.is-scrolled { box-shadow: 0 10px 30px -20px rgb(0 0 0 / .45); }
+
+      /* Etiquetas de tecnología: mono, mayúsculas y borde fino */
+      .tag {
+        border: 1px solid rgb(var(--line));
+        padding: .375rem .75rem;
+        font-family: "IBM Plex Mono", ui-monospace, monospace;
+        font-size: 11px;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: rgb(var(--muted));
+      }
+      .tag-sm { padding: .25rem .55rem; font-size: 10.5px; letter-spacing: .06em; }
+
+      /* Enlaces de texto con flecha que avanza al pasar el mouse */
+      .link-arrow {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        font-family: "IBM Plex Mono", ui-monospace, monospace;
+        font-size: .75rem;
+        letter-spacing: .15em;
+        text-transform: uppercase;
+        transition: color .2s;
+      }
+      .link-arrow span { color: rgb(var(--accent)); transition: transform .2s; }
+      .link-arrow:hover { color: rgb(var(--accent)); }
+      .link-arrow:hover span { transform: translateX(4px); }
+
+      /* Marco de navegador para las capturas principales */
+      .browser {
+        overflow: hidden;
+        border: 1px solid rgb(var(--line));
+        border-radius: .5rem;
+        background: rgb(var(--bg));
+        box-shadow: 0 30px 60px -30px rgb(0 0 0 / .55);
+      }
+      .browser-bar {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: .6rem 1rem;
+        border-bottom: 1px solid rgb(var(--line));
+        background: rgb(var(--surface));
+      }
+      .browser-dots { display: flex; gap: .375rem; }
+      .browser-dots i { width: .5rem; height: .5rem; border-radius: 9999px; background: rgb(var(--line)); }
+      .browser-url {
+        margin: 0 auto;
+        max-width: 80%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding: .2rem .75rem;
+        border: 1px solid rgb(var(--line));
+        border-radius: 9999px;
+        font-family: "IBM Plex Mono", ui-monospace, monospace;
+        font-size: 10px;
+        letter-spacing: .08em;
+        color: rgb(var(--muted));
+      }
+
+      /* Tarjetas que se elevan al pasar el mouse */
+      .card { transition: transform .25s ease-out, border-color .25s, box-shadow .25s; }
+      .card:hover {
+        transform: translateY(-4px);
+        border-color: rgb(var(--accent) / .4);
+        box-shadow: 0 18px 40px -22px rgb(var(--accent) / .45);
+      }
+
+      /* Cinta de tecnologías en movimiento continuo */
+      .marquee { overflow: hidden; }
+      .marquee-track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+      .marquee:hover .marquee-track { animation-play-state: paused; }
+      @keyframes marquee { to { transform: translateX(-50%); } }
+
+      /* Índice lateral */
+      .dot { display: block; width: .375rem; height: .375rem; border-radius: 9999px; background: rgb(var(--muted)); transition: all .25s; }
+      #dots a:hover .dot { background: rgb(var(--ink)); }
+      #dots a.is-active .dot { width: .625rem; height: .625rem; background: rgb(var(--accent)); }
+
+      a, button, input, textarea { -webkit-tap-highlight-color: transparent; }
+      :focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 3px; border-radius: 4px; }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after { transition: none !important; animation: none !important; }
+        .js .reveal { opacity: 1; transform: none; }
+      }
+    </style>
+  </head>
+
+  <body class="font-sans antialiased">
+
+    <!-- ============ NAVEGACIÓN ============ -->
+    <header class="sticky z-40 border-b border-line bg-bg/80 backdrop-blur-md transition-shadow duration-300" style="top: env(safe-area-inset-top, 0px)">
+      <nav class="mx-auto flex max-w-page items-center justify-between gap-4 px-4 py-3 sm:px-6" aria-label="Principal">
+        <a href="#inicio" class="flex items-center gap-2.5 font-display text-[15px] font-bold tracking-tight">
+          <span class="grid h-8 w-8 place-items-center rounded-md bg-ink font-mono text-xs text-bg" aria-hidden="true">DR</span>
+          <span>Dangelo Retis Cabrera</span>
+        </a>
+
+        <div class="hidden items-center gap-7 font-mono text-xs uppercase tracking-[0.15em] text-muted md:flex">
+          <a href="#perfil" class="transition-colors hover:text-ink"><span class="text-accent">01</span> Perfil</a>
+          <a href="#proyectos" class="transition-colors hover:text-ink"><span class="text-accent">02</span> Proyectos</a>
+          <a href="#habilidades" class="transition-colors hover:text-ink"><span class="text-accent">03</span> Habilidades</a>
+          <a href="#contacto" class="transition-colors hover:text-ink"><span class="text-accent">04</span> Contacto</a>
+          <button id="theme-toggle" type="button" class="rounded-md border border-line px-2.5 py-1 font-mono text-xs normal-case tracking-normal hover:text-ink" aria-label="Cambiar tema">tema</button>
+        </div>
+
+        <button id="menu-toggle" type="button" class="rounded-md border border-line px-3 py-1.5 text-sm md:hidden" aria-expanded="false" aria-controls="menu-movil">Menú</button>
+      </nav>
+
+      <div id="menu-movil" class="border-t border-line px-4 pb-4 pt-2 md:hidden" hidden>
+        <div class="flex flex-col gap-1 text-[15px]">
+          <a href="#perfil" class="rounded px-2 py-2 hover:bg-sunk"><span class="font-mono text-xs text-accent">01</span> Perfil</a>
+          <a href="#proyectos" class="rounded px-2 py-2 hover:bg-sunk"><span class="font-mono text-xs text-accent">02</span> Proyectos</a>
+          <a href="#habilidades" class="rounded px-2 py-2 hover:bg-sunk"><span class="font-mono text-xs text-accent">03</span> Habilidades</a>
+          <a href="#contacto" class="rounded px-2 py-2 hover:bg-sunk"><span class="font-mono text-xs text-accent">04</span> Contacto</a>
+          <button id="theme-toggle-m" type="button" class="rounded px-2 py-2 text-left text-muted hover:bg-sunk">Cambiar tema</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Índice lateral de secciones (solo escritorio): el punto activo sigue al scroll -->
+    <nav id="dots" class="fixed right-6 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-3 xl:flex" aria-label="Secciones">
+      <a href="#inicio" class="group flex items-center justify-end gap-3" data-dot="inicio">
+        <span class="hidden font-mono text-[10px] uppercase tracking-[0.2em] text-muted group-hover:block">Inicio</span>
+        <span class="dot"></span>
+      </a>
+      <a href="#perfil" class="group flex items-center justify-end gap-3" data-dot="perfil">
+        <span class="hidden font-mono text-[10px] uppercase tracking-[0.2em] text-muted group-hover:block">Perfil</span>
+        <span class="dot"></span>
+      </a>
+      <a href="#proyectos" class="group flex items-center justify-end gap-3" data-dot="proyectos">
+        <span class="hidden font-mono text-[10px] uppercase tracking-[0.2em] text-muted group-hover:block">Proyectos</span>
+        <span class="dot"></span>
+      </a>
+      <a href="#habilidades" class="group flex items-center justify-end gap-3" data-dot="habilidades">
+        <span class="hidden font-mono text-[10px] uppercase tracking-[0.2em] text-muted group-hover:block">Habilidades</span>
+        <span class="dot"></span>
+      </a>
+      <a href="#contacto" class="group flex items-center justify-end gap-3" data-dot="contacto">
+        <span class="hidden font-mono text-[10px] uppercase tracking-[0.2em] text-muted group-hover:block">Contacto</span>
+        <span class="dot"></span>
+      </a>
+    </nav>
+
+    <main>
+
+      <!-- ============ HERO ============ -->
+      <div class="hero-bg">
+      <section id="inicio" class="mx-auto grid max-w-page items-center gap-12 px-4 pb-20 pt-14 sm:px-6 md:pt-24 lg:grid-cols-[1.15fr_1fr]">
+        <div>
+          <div class="reveal flex flex-wrap items-center gap-x-5 gap-y-3" data-hero style="--d: 0ms">
+            <p class="font-mono text-xs uppercase tracking-[0.25em] text-accent">Portafolio — 2026</p>
+            <p class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-muted">
+              <span class="pulse h-2 w-2 rounded-full bg-accent" aria-hidden="true"></span>
+              Disponible para prácticas y proyectos
+            </p>
+          </div>
+          <h1 class="reveal mt-6 font-display text-4xl font-extrabold leading-[1.02] tracking-tight sm:text-5xl lg:text-[3.8rem]" data-hero style="--d: 120ms">
+            Software que calcula, controla y <span class="text-accent">automatiza</span> el trabajo de RR.&nbsp;HH.
+          </h1>
+          <p class="reveal mt-6 max-w-[54ch] text-[17px] leading-relaxed text-muted" data-hero style="--d: 220ms">
+            Soy <span class="text-ink">Dangelo Retis Cabrera</span>, estudiante de Ingeniería de Sistemas. Construyo sistemas web
+            de gestión de personal —planillas, tareo y asistencia— y automatizaciones con IA que eliminan
+            trabajo manual. Como también doy soporte IT, diseño pensando en <span class="text-ink">quien opera el sistema cada día</span>.
+          </p>
+
+          <div class="reveal mt-8 flex flex-wrap items-center gap-3" data-hero style="--d: 320ms">
+            <a href="#proyectos" class="group inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 text-sm font-semibold text-accent-ink shadow-[0_10px_24px_-12px_rgb(var(--accent)/.7)] transition hover:-translate-y-0.5 hover:opacity-95">
+              Ver proyectos <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span>
+            </a>
+            <a href="#contacto" class="rounded-md border border-line bg-surface px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5 hover:border-ink/40">Contactar</a>
+            <!-- PENDIENTE: agrega tu CV como assets/cv.pdf -->
+            <a href="assets/cv.pdf" class="group inline-flex items-center gap-2 px-2 py-3 font-mono text-xs uppercase tracking-[0.15em] text-muted transition-colors hover:text-accent">
+              Descargar CV <span class="transition-transform group-hover:translate-y-0.5" aria-hidden="true">↓</span>
+            </a>
+          </div>
+
+          <!-- Ficha técnica -->
+          <dl class="reveal mt-10 grid max-w-md grid-cols-2 gap-x-8 border-t border-line font-mono text-xs" data-hero style="--d: 420ms">
+            <div class="flex flex-col gap-1 border-b border-line py-4">
+              <dt class="uppercase tracking-[0.15em] text-muted">Formación</dt>
+              <dd class="text-ink">Ing. de Sistemas</dd>
+            </div>
+            <div class="flex flex-col gap-1 border-b border-line py-4">
+              <dt class="uppercase tracking-[0.15em] text-muted">Enfoque</dt>
+              <dd class="text-ink">Sistemas de RR.&nbsp;HH.</dd>
+            </div>
+            <div class="flex flex-col gap-1 py-4">
+              <dt class="uppercase tracking-[0.15em] text-muted">Stack</dt>
+              <dd class="text-ink">Node.js · MySQL</dd>
+            </div>
+            <div class="flex flex-col gap-1 py-4">
+              <dt class="uppercase tracking-[0.15em] text-muted">Base</dt>
+              <dd class="text-ink">Pisco, Perú</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Boleta de ejemplo: muestra el tipo de cálculo que resuelve el sistema de planillas -->
+        <aside class="reveal rounded-xl border border-line bg-surface p-5 shadow-[0_1px_0_rgb(var(--line)),0_30px_60px_-30px_rgb(var(--accent)/.45)] sm:p-6" data-hero style="--d: 300ms" aria-label="Ejemplo de boleta calculada por el sistema">
+          <div class="flex items-baseline justify-between gap-3 border-b border-dashed border-line pb-3">
+            <div>
+              <p class="font-mono text-[11px] uppercase tracking-wider text-muted">Boleta de pago · ejemplo</p>
+              <p class="mt-1 font-display text-lg font-bold">Periodo 09/2026</p>
+            </div>
+            <span class="rounded bg-sunk px-2 py-1 font-mono text-[11px] text-muted">AFP · flujo</span>
+          </div>
+
+          <table class="tnum mt-3 w-full font-mono text-[13px]">
+            <tbody>
+              <tr>
+                <td colspan="2" class="pb-1 pt-2 text-[11px] uppercase tracking-wider text-muted">Ingresos</td>
+              </tr>
+              <tr>
+                <td class="py-1">Remuneración básica</td>
+                <td class="py-1 text-right">3,200.00</td>
+              </tr>
+              <tr>
+                <td class="py-1">Asignación familiar <span class="text-muted">(10% RMV)</span></td>
+                <td class="py-1 text-right">113.00</td>
+              </tr>
+              <tr class="border-t border-line">
+                <td class="py-1.5 font-medium">Total bruto</td>
+                <td class="py-1.5 text-right font-medium">3,313.00</td>
+              </tr>
+
+              <tr>
+                <td colspan="2" class="pb-1 pt-3 text-[11px] uppercase tracking-wider text-muted">Descuentos</td>
+              </tr>
+              <tr>
+                <td class="py-1">Aporte obligatorio AFP <span class="text-muted">10%</span></td>
+                <td class="py-1 text-right text-neg">−331.30</td>
+              </tr>
+              <tr>
+                <td class="py-1">Prima de seguro <span class="text-muted">1.37%</span></td>
+                <td class="py-1 text-right text-neg">−45.39</td>
+              </tr>
+              <tr>
+                <td class="py-1">Comisión sobre flujo <span class="text-muted">1.55%</span></td>
+                <td class="py-1 text-right text-neg">−51.35</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mt-3 flex items-baseline justify-between rounded-lg bg-sunk px-3 py-3">
+            <span class="font-display text-sm font-bold">Neto a pagar</span>
+            <span class="tnum font-mono text-xl font-medium text-mark">S/ 2,884.96</span>
+          </div>
+          <p class="tnum mt-3 font-mono text-[11px] text-muted">Aporte empleador EsSalud 9%: S/ 298.17 · cifras ilustrativas</p>
+        </aside>
+      </section>
+      </div>
+
+      <!-- Cinta de tecnologías: el contenido se duplica para que el desplazamiento sea continuo -->
+      <div class="marquee border-y border-line py-4" aria-label="Tecnologías que uso">
+        <div class="marquee-track font-mono text-xs uppercase tracking-[0.2em] text-muted">
+          <ul class="flex shrink-0 items-center gap-10 pr-10">
+            <li>JavaScript</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>TypeScript</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>PHP</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>Java</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>C#</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>Python</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>SQL</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>Node.js</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>Express</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>Laravel</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>Spring Boot</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>.NET</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>React</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>Tailwind CSS</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>Bootstrap</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>MySQL</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>SQL Server</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>PostgreSQL</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>MariaDB</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>SQLite</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>MongoDB</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>Git</li><li class="text-accent" aria-hidden="true">·</li>
+          </ul>
+          <ul class="flex shrink-0 items-center gap-10 pr-10" aria-hidden="true">
+            <li>JavaScript</li><li class="text-accent">·</li>
+            <li>TypeScript</li><li class="text-accent">·</li>
+            <li>PHP</li><li class="text-accent">·</li>
+            <li>Java</li><li class="text-accent">·</li>
+            <li>C#</li><li class="text-accent">·</li>
+            <li>Python</li><li class="text-accent">·</li>
+            <li>SQL</li><li class="text-accent">·</li>
+            <li>Node.js</li><li class="text-accent">·</li>
+            <li>Express</li><li class="text-accent">·</li>
+            <li>Laravel</li><li class="text-accent">·</li>
+            <li>Spring Boot</li><li class="text-accent">·</li>
+            <li>.NET</li><li class="text-accent">·</li>
+            <li>React</li><li class="text-accent">·</li>
+            <li>Tailwind CSS</li><li class="text-accent">·</li>
+            <li>Bootstrap</li><li class="text-accent">·</li>
+            <li>MySQL</li><li class="text-accent">·</li>
+            <li>SQL Server</li><li class="text-accent">·</li>
+            <li>PostgreSQL</li><li class="text-accent">·</li>
+            <li>MariaDB</li><li class="text-accent">·</li>
+            <li>SQLite</li><li class="text-accent">·</li>
+            <li>MongoDB</li><li class="text-accent">·</li>
+            <li>Git</li><li class="text-accent">·</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ============ PERFIL ============ -->
+      <section id="perfil" class="mx-auto grid max-w-page gap-12 px-4 py-24 sm:px-6 md:py-28 lg:grid-cols-12 lg:gap-10">
+        <div class="reveal lg:col-span-4">
+          <p class="eyebrow">01 — Perfil</p>
+          <h2 class="mt-4 font-display text-3xl font-extrabold leading-[1.08] tracking-tight sm:text-4xl">Primero entiendo el proceso, <span class="text-accent">después escribo el código</span>.</h2>
+        </div>
+
+        <div class="reveal space-y-4 text-base leading-relaxed text-muted md:text-lg lg:col-span-5">
+          <p>
+            Soy <span class="text-ink">Dangelo</span>, estudiante de Ingeniería de Sistemas en Pisco, Ica. Me interesa el software
+            que resuelve problemas concretos de una empresa: calcular una planilla sin errores, saber quién asistió y
+            cuántas horas trabajó, o dejar de copiar datos a mano entre hojas de cálculo.
+          </p>
+          <p>
+            Combino desarrollo <span class="text-ink">full stack</span> con experiencia en <span class="text-ink">soporte IT</span>.
+            Por eso pienso en quien usará el sistema cada día: pantallas claras, datos confiables y procesos que no
+            dependan de una sola persona.
+          </p>
+          <p>
+            Hoy busco prácticas o proyectos donde aportar en <span class="text-ink">backend, bases de datos o automatización</span>.
+          </p>
+        </div>
+
+        <!-- Resumen del stack -->
+        <dl class="reveal self-start border-t border-line font-mono text-xs lg:col-span-3">
+          <div class="flex flex-col gap-1.5 border-b border-line py-4">
+            <dt class="uppercase tracking-[0.15em] text-muted">Lenguajes</dt>
+            <dd class="leading-relaxed text-ink">JavaScript · TypeScript · PHP · Java · C# · Python · SQL</dd>
+          </div>
+          <div class="flex flex-col gap-1.5 border-b border-line py-4">
+            <dt class="uppercase tracking-[0.15em] text-muted">Frameworks</dt>
+            <dd class="leading-relaxed text-ink">Node.js · Express · Laravel · Spring Boot · .NET · React · Tailwind · Bootstrap</dd>
+          </div>
+          <div class="flex flex-col gap-1.5 border-b border-line py-4">
+            <dt class="uppercase tracking-[0.15em] text-muted">Bases de datos</dt>
+            <dd class="leading-relaxed text-ink">MySQL · SQL Server · PostgreSQL · MariaDB · SQLite · MongoDB</dd>
+          </div>
+          <div class="flex flex-col gap-1.5 py-4">
+            <dt class="uppercase tracking-[0.15em] text-muted">Herramientas</dt>
+            <dd class="leading-relaxed text-ink">Git · GitHub · Puppeteer · APIs de LLM</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- ============ PROYECTOS ============ -->
+      <section id="proyectos" class="border-t border-line bg-surface">
+        <div class="mx-auto max-w-page px-4 py-24 sm:px-6 md:py-28">
+          <div class="reveal">
+            <div class="flex flex-wrap items-baseline justify-between gap-4">
+              <p class="eyebrow">02 — Proyectos</p>
+              <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted"><span class="text-ink">02</span> publicados · <span class="text-ink">03</span> en desarrollo</p>
+            </div>
+            <h2 class="mt-4 max-w-3xl font-display text-3xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl">
+              Dos sistemas conectados para <span class="text-accent">gestionar personal</span>.
+            </h2>
+            <p class="mt-5 max-w-2xl leading-relaxed text-muted">Las horas que se registran en el tareo alimentan directamente el cálculo mensual de la planilla: un solo flujo, sin volver a digitar datos.</p>
+          </div>
+
+          <!-- ---------- P.01 Planillas ---------- -->
+          <article class="reveal mt-16 grid gap-10 border-t border-line pt-16 lg:grid-cols-12 lg:gap-12" aria-labelledby="p-planillas">
+            <div class="flex flex-col lg:col-span-5">
+              <p class="font-mono text-xs tracking-[0.2em] text-accent">P.01 — 2026</p>
+              <h3 id="p-planillas" class="mt-3 font-display text-3xl font-extrabold leading-[1.05] tracking-tight sm:text-4xl">Sistema de Planillas</h3>
+              <p class="mt-3 font-mono text-xs uppercase tracking-[0.15em] text-muted">Cálculo mensual de RR.&nbsp;HH. — de hojas de cálculo a un sistema</p>
+              <p class="mt-6 leading-relaxed text-muted">
+                Aplicación web que calcula la planilla mensual completa: ingresos, aportes al sistema de pensiones,
+                retenciones y aportes del empleador. Reemplaza hojas de cálculo que se armaban a mano cada mes.
+              </p>
+              <ul class="mt-6 space-y-2.5 text-[15px]">
+                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Prorrateo automático por fecha de ingreso, cese o reincorporación.</li>
+                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>AFP y ONP con comisiones SPP actualizadas desde la web de la SBS.</li>
+                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Conceptos remunerativos configurables con vigencia por periodo.</li>
+                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Préstamos, descuentos judiciales y cuotas sindicales.</li>
+                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Roles de usuario, auditoría y planillas cerradas como snapshot.</li>
+              </ul>
+              <ul class="mt-8 flex flex-wrap gap-2" aria-label="Tecnologías">
+                <li class="tag">Node.js</li>
+                <li class="tag">Express</li>
+                <li class="tag">MySQL</li>
+                <li class="tag">JWT</li>
+                <li class="tag">Puppeteer</li>
+                <li class="tag">Nodemailer</li>
+              </ul>
+              <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+                <!-- PENDIENTE: reemplaza "#" por los enlaces reales del proyecto -->
+                <a href="https://sistema-planillas.onrender.com" data-link="demo" class="link-arrow text-ink" target="_blank" rel="noopener">Ver demo <span aria-hidden="true">→</span></a>
+                <a href="https://github.com/DRXD13/SISTEMA_PLANILLAS" data-link="repo" class="link-arrow text-muted" target="_blank" rel="noopener">Ver código <span aria-hidden="true">→</span></a>
+                <a href="#" data-link="video" class="link-arrow text-muted" target="_blank" rel="noopener">Video <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-3 lg:col-span-7">
+              <!-- Capturas en assets/. Si un archivo no existe se muestra el marcador rayado. -->
+              <div class="browser">
+                <div class="browser-bar">
+                  <span class="browser-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="browser-url">sistema-planillas.onrender.com</span>
+                </div>
+                <figure class="shot aspect-[16/10]" style="border: 0">
+                  <div class="ph">
+                    <span class="font-display text-sm font-bold text-ink">Captura principal</span>
+                    <span class="font-mono text-xs">assets/planillas-calculo.png</span>
+                  </div>
+                  <img src="assets/planillas-calculo.png" alt="Procesamiento de planilla mensual: datos laborales por trabajador" loading="lazy">
+                </figure>
+              </div>
+              <div class="grid grid-cols-3 gap-3">
+                <figure class="shot aspect-[4/3] rounded-md">
+                  <div class="ph"><span class="font-mono text-[11px]">planillas-calculo2.png</span></div>
+                  <img src="assets/planillas-calculo2.png" alt="Descuentos al trabajador, aporte EsSalud y neto a pagar" loading="lazy">
+                </figure>
+                <figure class="shot aspect-[4/3] rounded-md">
+                  <div class="ph"><span class="font-mono text-[11px]">planillas-empleado.png</span></div>
+                  <img src="assets/planillas-empleado.png" alt="Mantenimiento de trabajadores" loading="lazy">
+                </figure>
+                <figure class="shot aspect-[4/3] rounded-md">
+                  <div class="ph"><span class="font-mono text-[11px]">planilla-concepto.png</span></div>
+                  <img src="assets/planilla-concepto.png" alt="Conceptos del trabajador: ingresos y descuentos asignados" loading="lazy" style="object-position: center">
+                </figure>
+              </div>
+            </div>
+          </article>
+
+          <!-- ---------- P.02 Tareo ---------- -->
+          <article class="reveal mt-16 grid gap-10 border-t border-line pt-16 lg:grid-cols-12 lg:gap-12" aria-labelledby="p-tareo">
+            <div class="flex flex-col lg:order-2 lg:col-span-5">
+              <p class="font-mono text-xs tracking-[0.2em] text-accent">P.02 — 2026</p>
+              <h3 id="p-tareo" class="mt-3 font-display text-3xl font-extrabold leading-[1.05] tracking-tight sm:text-4xl">Sistema de Tareo y Control</h3>
+              <p class="mt-3 font-mono text-xs uppercase tracking-[0.15em] text-muted">Asistencia diaria — la fuente de datos de la planilla</p>
+              <p class="mt-6 leading-relaxed text-muted">
+                Registro diario de asistencia y horas trabajadas por trabajador y por área. Los supervisores tarean
+                desde el navegador y el sistema consolida los días laborados que usa la planilla.
+              </p>
+
+              <!-- Leyenda de códigos de tareo: el vocabulario real con el que trabaja el sistema -->
+              <div class="mt-6 rounded-lg border border-line p-4">
+                <p class="font-mono text-[11px] uppercase tracking-wider text-muted">Códigos de tareo</p>
+                <dl class="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 font-mono text-[13px] sm:grid-cols-3">
+                  <div class="flex items-center gap-2"><dt class="grid h-6 w-6 place-items-center rounded bg-accent/15 text-accent">A</dt><dd>Asistió</dd></div>
+                  <div class="flex items-center gap-2"><dt class="grid h-6 w-6 place-items-center rounded bg-neg/15 text-neg">F</dt><dd>Falta</dd></div>
+                  <div class="flex items-center gap-2"><dt class="grid h-6 w-6 place-items-center rounded bg-mark/15 text-mark">T</dt><dd>Tardanza</dd></div>
+                  <div class="flex items-center gap-2"><dt class="grid h-6 w-6 place-items-center rounded bg-sunk">V</dt><dd>Vacaciones</dd></div>
+                  <div class="flex items-center gap-2"><dt class="grid h-6 w-6 place-items-center rounded bg-sunk">DM</dt><dd>Desc. médico</dd></div>
+                  <div class="flex items-center gap-2"><dt class="grid h-6 w-6 place-items-center rounded bg-sunk">HE</dt><dd>Horas extra</dd></div>
+                </dl>
+              </div>
+
+              <ul class="mt-6 space-y-2.5 text-[15px]">
+                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Marcaciones de entrada y salida con cálculo de tardanzas y horas extra.</li>
+                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Consolidado mensual por trabajador exportable a Excel.</li>
+                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Días laborados enviados directamente al cálculo de planilla.</li>
+              </ul>
+              <ul class="mt-8 flex flex-wrap gap-2" aria-label="Tecnologías">
+                <li class="tag">Node.js</li>
+                <li class="tag">Express</li>
+                <li class="tag">MySQL</li>
+                <li class="tag">JavaScript</li>
+                <li class="tag">Tailwind CSS</li>
+              </ul>
+              <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+                <!-- PENDIENTE: reemplaza "#" por los enlaces reales del proyecto -->
+                <a href="https://sistema-planillas.onrender.com" data-link="demo" class="link-arrow text-ink" target="_blank" rel="noopener">Ver demo <span aria-hidden="true">→</span></a>
+                <a href="#" data-link="repo" class="link-arrow text-muted" target="_blank" rel="noopener">Ver código <span aria-hidden="true">→</span></a>
+                <a href="#" data-link="video" class="link-arrow text-muted" target="_blank" rel="noopener">Video <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-3 lg:order-1 lg:col-span-7">
+              <div class="browser">
+                <div class="browser-bar">
+                  <span class="browser-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="browser-url">Tareo · registro diario</span>
+                </div>
+                <figure class="shot aspect-[16/10]" style="border: 0">
+                  <div class="ph">
+                    <span class="font-display text-sm font-bold text-ink">Captura principal</span>
+                    <span class="font-mono text-xs">assets/tareo-panel.png</span>
+                  </div>
+                  <img src="assets/tareo-panel.png" alt="Registro diario de tareo" loading="lazy">
+                </figure>
+              </div>
+              <div class="grid grid-cols-3 gap-3">
+                <figure class="shot aspect-[4/3] rounded-md">
+                  <div class="ph"><span class="font-mono text-[11px]">tareo-marcaciones.png</span></div>
+                  <img src="assets/tareo-marcaciones.png" alt="Marcaciones de entrada y salida" loading="lazy">
+                </figure>
+                <figure class="shot aspect-[4/3] rounded-md">
+                  <div class="ph"><span class="font-mono text-[11px]">tareo-reporte.png</span></div>
+                  <img src="assets/tareo-reporte.png" alt="Reporte mensual de asistencia" loading="lazy">
+                </figure>
+                <figure class="shot aspect-[4/3] rounded-md">
+                  <div class="ph"><span class="font-mono text-[11px]">tareo-movil.png</span></div>
+                  <img src="assets/tareo-movil.png" alt="Vista para supervisores en campo" loading="lazy">
+                </figure>
+              </div>
+            </div>
+          </article>
+
+          <!-- ---------- Otros sistemas ---------- -->
+          <div class="mt-16 border-t border-line pt-16">
+            <div class="reveal flex flex-wrap items-end justify-between gap-4">
+              <div class="max-w-2xl">
+                <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted">Más proyectos</p>
+                <h3 class="mt-3 font-display text-2xl font-extrabold tracking-tight sm:text-3xl">Otros sistemas</h3>
+                <p class="mt-3 leading-relaxed text-muted">Herramientas que estoy construyendo para el día a día de TI y RR.&nbsp;HH. Publicaré cada demo al terminarla.</p>
+              </div>
+            </div>
+
+            <!-- PENDIENTE: tarjetas de ejemplo. Reemplaza textos, capturas y enlaces "#" por los reales. -->
+            <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <article class="card reveal flex flex-col overflow-hidden rounded-xl border border-line bg-bg">
+                <div class="browser-bar">
+                  <span class="browser-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="browser-url">inventario-ti</span>
+                </div>
+                <figure class="shot aspect-[16/9]" style="border: 0">
+                  <div class="ph"><span class="font-mono text-[11px]">assets/sistema-1.png</span></div>
+                  <img src="assets/sistema-1.png" alt="Sistema de inventario de equipos TI" loading="lazy">
+                </figure>
+                <div class="flex flex-1 flex-col border-t border-line p-5">
+                  <p class="flex items-center justify-between font-mono text-[11px] tracking-[0.2em] text-accent">P.03 <span class="uppercase tracking-[0.15em] text-muted">En desarrollo</span></p>
+                  <h4 class="mt-2 font-display text-lg font-bold">Inventario de equipos TI</h4>
+                  <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-muted">Registro de equipos, asignación por usuario y área, e historial de mantenimientos preventivos y correctivos.</p>
+                  <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Tecnologías">
+                    <li class="tag tag-sm">Node.js</li><li class="tag tag-sm">MySQL</li>
+                  </ul>
+                  <div class="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 pt-5">
+                    <a href="#" data-link="demo" class="link-arrow text-ink" target="_blank" rel="noopener">Ver demo <span aria-hidden="true">→</span></a>
+                    <a href="#" data-link="repo" class="link-arrow text-muted" target="_blank" rel="noopener">GitHub <span aria-hidden="true">→</span></a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="card reveal flex flex-col overflow-hidden rounded-xl border border-line bg-bg">
+                <div class="browser-bar">
+                  <span class="browser-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="browser-url">mesa-de-ayuda</span>
+                </div>
+                <figure class="shot aspect-[16/9]" style="border: 0">
+                  <div class="ph"><span class="font-mono text-[11px]">assets/sistema-2.png</span></div>
+                  <img src="assets/sistema-2.png" alt="Mesa de ayuda con tickets" loading="lazy">
+                </figure>
+                <div class="flex flex-1 flex-col border-t border-line p-5">
+                  <p class="flex items-center justify-between font-mono text-[11px] tracking-[0.2em] text-accent">P.04 <span class="uppercase tracking-[0.15em] text-muted">En desarrollo</span></p>
+                  <h4 class="mt-2 font-display text-lg font-bold">Mesa de ayuda</h4>
+                  <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-muted">Tickets de soporte con prioridades, asignación a técnicos y seguimiento del tiempo de atención por incidencia.</p>
+                  <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Tecnologías">
+                    <li class="tag tag-sm">PHP</li><li class="tag tag-sm">MySQL</li>
+                  </ul>
+                  <div class="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 pt-5">
+                    <a href="#" data-link="demo" class="link-arrow text-ink" target="_blank" rel="noopener">Ver demo <span aria-hidden="true">→</span></a>
+                    <a href="#" data-link="repo" class="link-arrow text-muted" target="_blank" rel="noopener">GitHub <span aria-hidden="true">→</span></a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="card reveal flex flex-col overflow-hidden rounded-xl border border-line bg-bg">
+                <div class="browser-bar">
+                  <span class="browser-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="browser-url">reportes-ia</span>
+                </div>
+                <figure class="shot aspect-[16/9]" style="border: 0">
+                  <div class="ph"><span class="font-mono text-[11px]">assets/sistema-3.png</span></div>
+                  <img src="assets/sistema-3.png" alt="Automatización de reportes con IA" loading="lazy">
+                </figure>
+                <div class="flex flex-1 flex-col border-t border-line p-5">
+                  <p class="flex items-center justify-between font-mono text-[11px] tracking-[0.2em] text-accent">P.05 <span class="uppercase tracking-[0.15em] text-muted">En desarrollo</span></p>
+                  <h4 class="mt-2 font-display text-lg font-bold">Reportes automáticos con IA</h4>
+                  <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-muted">Genera resúmenes a partir de hojas de cálculo con un modelo de lenguaje y los envía por correo en horario programado.</p>
+                  <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Tecnologías">
+                    <li class="tag tag-sm">Python</li><li class="tag tag-sm">API de LLM</li>
+                  </ul>
+                  <div class="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 pt-5">
+                    <a href="#" data-link="demo" class="link-arrow text-ink" target="_blank" rel="noopener">Ver demo <span aria-hidden="true">→</span></a>
+                    <a href="#" data-link="repo" class="link-arrow text-muted" target="_blank" rel="noopener">GitHub <span aria-hidden="true">→</span></a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ HABILIDADES ============ -->
+      <section id="habilidades" class="border-t border-line">
+        <div class="mx-auto grid max-w-page gap-12 px-4 py-24 sm:px-6 md:py-28 lg:grid-cols-12 lg:gap-10">
+          <div class="reveal lg:col-span-4">
+            <div class="lg:sticky lg:top-28">
+              <p class="eyebrow">03 — Habilidades</p>
+              <h2 class="mt-4 font-display text-3xl font-extrabold leading-[1.08] tracking-tight sm:text-4xl">Del código al <span class="text-accent">puesto de trabajo</span> del usuario.</h2>
+              <p class="mt-5 leading-relaxed text-muted">Cuatro áreas que se complementan: construyo el sistema, modelo sus datos, automatizo lo repetitivo y lo sostengo en operación.</p>
+            </div>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2 lg:col-span-8">
+            <div class="card reveal rounded-xl border border-line bg-bg p-6 sm:p-7">
+              <p class="font-mono text-[11px] tracking-[0.2em] text-accent">S.01</p>
+              <h3 class="mt-2 font-display text-lg font-bold">Desarrollo full stack</h3>
+              <p class="mt-1 text-sm leading-relaxed text-muted">Aplicaciones web completas, de la API a la interfaz, en varios lenguajes y frameworks.</p>
+              <ul class="mt-5 flex flex-wrap gap-1.5">
+                <li class="tag tag-sm">JavaScript · TypeScript</li>
+                <li class="tag tag-sm">PHP · Java · C#</li>
+                <li class="tag tag-sm">Node.js · Express</li>
+                <li class="tag tag-sm">Laravel</li>
+                <li class="tag tag-sm">Spring Boot</li>
+                <li class="tag tag-sm">.NET</li>
+                <li class="tag tag-sm">React</li>
+                <li class="tag tag-sm">Tailwind · Bootstrap</li>
+                <li class="tag tag-sm">APIs REST · JWT</li>
+                <li class="tag tag-sm">Git · GitHub</li>
+              </ul>
+            </div>
+
+            <div class="card reveal rounded-xl border border-line bg-bg p-6 sm:p-7">
+              <p class="font-mono text-[11px] tracking-[0.2em] text-accent">S.02</p>
+              <h3 class="mt-2 font-display text-lg font-bold">Bases de datos</h3>
+              <p class="mt-1 text-sm leading-relaxed text-muted">Modelado, consultas y migraciones en motores relacionales y NoSQL.</p>
+              <ul class="mt-5 flex flex-wrap gap-1.5">
+                <li class="tag tag-sm">SQL</li>
+                <li class="tag tag-sm">MySQL · MariaDB</li>
+                <li class="tag tag-sm">SQL Server</li>
+                <li class="tag tag-sm">PostgreSQL</li>
+                <li class="tag tag-sm">SQLite</li>
+                <li class="tag tag-sm">MongoDB</li>
+                <li class="tag tag-sm">Modelado relacional</li>
+                <li class="tag tag-sm">Migraciones versionadas</li>
+                <li class="tag tag-sm">Auditoría de cambios</li>
+              </ul>
+            </div>
+
+            <div class="card reveal rounded-xl border border-line bg-bg p-6 sm:p-7">
+              <p class="font-mono text-[11px] tracking-[0.2em] text-accent">S.03</p>
+              <h3 class="mt-2 font-display text-lg font-bold">Automatización con IA</h3>
+              <p class="mt-1 text-sm leading-relaxed text-muted">Procesos que antes se hacían a mano, ahora con scripts y modelos de lenguaje.</p>
+              <ul class="mt-5 flex flex-wrap gap-1.5">
+                <li class="tag tag-sm">APIs de LLM (Claude, OpenAI)</li>
+                <li class="tag tag-sm">Asistentes de código con IA</li>
+                <li class="tag tag-sm">Web scraping · Puppeteer</li>
+                <li class="tag tag-sm">Correos automáticos</li>
+                <li class="tag tag-sm">Python · scripts</li>
+              </ul>
+            </div>
+
+            <div class="card reveal rounded-xl border border-line bg-bg p-6 sm:p-7">
+              <p class="font-mono text-[11px] tracking-[0.2em] text-accent">S.04</p>
+              <h3 class="mt-2 font-display text-lg font-bold">Soporte IT</h3>
+              <p class="mt-1 text-sm leading-relaxed text-muted">Atención a usuarios, equipos y red en el día a día de la oficina.</p>
+              <ul class="mt-5 flex flex-wrap gap-1.5">
+                <li class="tag tag-sm">Windows · Office 365</li>
+                <li class="tag tag-sm">Excel avanzado</li>
+                <li class="tag tag-sm">Redes LAN · TCP/IP</li>
+                <li class="tag tag-sm">Hardware y mantenimiento</li>
+                <li class="tag tag-sm">Mesa de ayuda</li>
+                <li class="tag tag-sm">Copias de seguridad</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CONTACTO ============ -->
+      <section id="contacto" class="border-t border-line bg-surface">
+        <div class="mx-auto grid max-w-page gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_1.2fr]">
+          <div class="reveal">
+            <p class="eyebrow">04 — Contacto</p>
+            <h2 class="mt-3 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">¿Tienes un proceso que automatizar?</h2>
+            <p class="mt-4 max-w-[48ch] leading-relaxed text-muted">Escríbeme sobre un proyecto, una práctica profesional o una consulta técnica. Respondo en uno o dos días hábiles.</p>
+
+            <div class="mt-8 rounded-lg border border-line p-4">
+              <p class="text-xs text-muted">Correo</p>
+              <div class="mt-1 flex flex-wrap items-center gap-3">
+                <!-- El correo se toma de CONFIG.email, al final del archivo -->
+                <a id="email-text" href="mailto:retisdangelo@gmail.com" class="select-all break-all font-mono text-[15px] hover:text-accent">retisdangelo@gmail.com</a>
+                <button id="copy-email" type="button" class="rounded border border-line px-2 py-1 font-mono text-xs text-muted hover:text-ink">Copiar</button>
+              </div>
+            </div>
+
+            <ul class="mt-4 grid gap-3 sm:grid-cols-2">
+              <li>
+                <a href="https://github.com/DRXD13" target="_blank" rel="noopener" class="flex items-center gap-3 rounded-lg border border-line p-4 transition duration-200 ease-out hover:-translate-y-1 hover:border-accent/40 hover:text-accent hover:shadow-[0_14px_30px_-18px_rgb(var(--accent)/.45)]">
+                  <svg class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+                  <span>
+                    <span class="block text-sm font-semibold">GitHub</span>
+                    <span class="block font-mono text-xs text-muted">github.com/DRXD13</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/in/dangelo-retis-cabrera-a2b5a7370/" target="_blank" rel="noopener" class="flex items-center gap-3 rounded-lg border border-line p-4 transition duration-200 ease-out hover:-translate-y-1 hover:border-accent/40 hover:text-accent hover:shadow-[0_14px_30px_-18px_rgb(var(--accent)/.45)]">
+                  <svg class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+                  <span class="min-w-0">
+                    <span class="block text-sm font-semibold">LinkedIn</span>
+                    <span class="block break-all font-mono text-xs text-muted">in/dangelo-retis-cabrera</span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <form id="contact-form" class="reveal grid gap-4 rounded-xl border border-line bg-bg p-5 sm:p-7" novalidate>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label class="grid gap-1.5 text-sm font-medium" for="f-nombre">
+                Nombre
+                <input id="f-nombre" name="nombre" type="text" required autocomplete="name" class="rounded-md border border-line bg-surface px-3 py-2.5 font-normal outline-none focus:border-accent">
+              </label>
+              <label class="grid gap-1.5 text-sm font-medium" for="f-email">
+                Correo
+                <input id="f-email" name="email" type="email" required autocomplete="email" class="rounded-md border border-line bg-surface px-3 py-2.5 font-normal outline-none focus:border-accent">
+              </label>
+            </div>
+            <label class="grid gap-1.5 text-sm font-medium" for="f-asunto">
+              Asunto
+              <select id="f-asunto" name="asunto" class="rounded-md border border-line bg-surface px-3 py-2.5 font-normal outline-none focus:border-accent">
+                <option>Propuesta de proyecto</option>
+                <option>Oportunidad laboral o prácticas</option>
+                <option>Soporte o consulta técnica</option>
+                <option>Otro</option>
+              </select>
+            </label>
+            <label class="grid gap-1.5 text-sm font-medium" for="f-mensaje">
+              Mensaje
+              <textarea id="f-mensaje" name="mensaje" rows="5" required minlength="10" class="resize-y rounded-md border border-line bg-surface px-3 py-2.5 font-normal outline-none focus:border-accent"></textarea>
+            </label>
+            <div class="flex flex-wrap items-center gap-4">
+              <button type="submit" class="rounded-md bg-accent px-5 py-3 text-sm font-semibold text-accent-ink hover:opacity-90 disabled:opacity-60">Enviar mensaje</button>
+              <p id="form-status" class="text-sm text-muted" role="status" aria-live="polite"></p>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="border-t border-line">
+      <div class="mx-auto flex max-w-page flex-wrap items-center justify-between gap-3 px-4 py-8 text-sm text-muted sm:px-6">
+        <p>© <span id="year">2026</span> Dangelo Retis Cabrera · Estudiante de Ingeniería de Sistemas</p>
+        <a href="#inicio" class="hover:text-ink">Volver arriba ↑</a>
+      </div>
+    </footer>
+
+    <!-- Visor de capturas -->
+    <div id="lightbox" class="fixed inset-0 z-50 place-items-center bg-black/80 p-4" hidden role="dialog" aria-modal="true" aria-label="Captura ampliada">
+      <figure class="max-h-full w-full max-w-6xl">
+        <img id="lightbox-img" alt="" class="mx-auto max-h-[80vh] rounded-lg bg-surface object-contain">
+        <figcaption id="lightbox-cap" class="mt-3 text-center text-sm text-white"></figcaption>
+      </figure>
+      <button id="lightbox-close" type="button" class="absolute right-4 top-4 rounded-md bg-surface px-3 py-1.5 text-sm font-semibold text-ink">Cerrar</button>
+    </div>
+
+    <script>
+      // ============ CONFIGURACIÓN ============
+      const CONFIG = {
+        email: 'retisdangelo@gmail.com',
+        // Opcional: URL de un servicio de formularios (Formspree, Getform, etc.).
+        // Si queda vacío, el formulario abre el cliente de correo con el mensaje listo.
+        formEndpoint: 'https://formspree.io/f/mwlpwzpw',
+      };
+
+      // ---------- Tema claro / oscuro (el tema guardado ya se aplicó en <head>) ----------
+      const root = document.documentElement;
+
+      function toggleTheme() {
+        const isDark = root.dataset.theme
+          ? root.dataset.theme === 'dark'
+          : matchMedia('(prefers-color-scheme: dark)').matches;
+        root.dataset.theme = isDark ? 'light' : 'dark';
+        try { localStorage.setItem('tema', root.dataset.theme); } catch (e) {}
+      }
+      document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+      document.getElementById('theme-toggle-m').addEventListener('click', toggleTheme);
+
+      // ---------- Animaciones de entrada ----------
+      // Al terminar, se quita .reveal para que los hover recuperen sus propias transiciones.
+      function showReveal(el) {
+        el.addEventListener('transitionend', () => el.classList.remove('reveal', 'is-in'), { once: true });
+        el.classList.add('is-in');
+      }
+
+      // Hero: entra escalonado apenas carga la página
+      requestAnimationFrame(() => document.querySelectorAll('[data-hero]').forEach(showReveal));
+
+      // Resto: entra al aparecer en pantalla; las tarjetas hermanas se escalonan
+      const pending = [...document.querySelectorAll('.reveal:not([data-hero])')];
+      pending.forEach((el) => {
+        const sibs = [...el.parentElement.children].filter((c) => c.classList.contains('reveal'));
+        if (sibs.length > 1) el.style.setProperty('--d', sibs.indexOf(el) * 90 + 'ms');
+      });
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((en) => {
+            if (en.isIntersecting) { showReveal(en.target); io.unobserve(en.target); }
+          });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+        pending.forEach((el) => io.observe(el));
+      } else {
+        pending.forEach(showReveal);
+      }
+
+      // ---------- Cabecera con sombra al hacer scroll ----------
+      const header = document.querySelector('header');
+      const onScroll = () => header.classList.toggle('is-scrolled', scrollY > 8);
+      addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // ---------- Índice lateral: marca la sección visible ----------
+      const dots = document.querySelectorAll('#dots a');
+      if ('IntersectionObserver' in window) {
+        const spy = new IntersectionObserver((entries) => {
+          entries.forEach((en) => {
+            if (!en.isIntersecting) return;
+            dots.forEach((d) => d.classList.toggle('is-active', d.dataset.dot === en.target.id));
+          });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        ['inicio', 'perfil', 'proyectos', 'habilidades', 'contacto'].forEach((id) => spy.observe(document.getElementById(id)));
+      }
+
+      // ---------- Menú móvil ----------
+      const menuBtn = document.getElementById('menu-toggle');
+      const menu = document.getElementById('menu-movil');
+      menuBtn.addEventListener('click', () => {
+        menu.hidden = !menu.hidden;
+        menuBtn.setAttribute('aria-expanded', String(!menu.hidden));
+      });
+      menu.addEventListener('click', (e) => {
+        if (e.target.closest('a')) {
+          menu.hidden = true;
+          menuBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // ---------- Capturas: las <img> están en el HTML; aquí solo se marcan las que cargaron ----------
+      const lightbox = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightbox-img');
+      const lbCap = document.getElementById('lightbox-cap');
+
+      function markLoaded(fig) {
+        fig.classList.add('has-img');
+        fig.tabIndex = 0;
+        fig.setAttribute('role', 'button');
+        fig.setAttribute('aria-label', 'Ampliar: ' + fig.querySelector('img').alt);
+      }
+
+      document.querySelectorAll('.shot').forEach((fig) => {
+        const img = fig.querySelector('img');
+        if (!img) return;
+        if (img.complete && img.naturalWidth > 0) {
+          markLoaded(fig); // ya cargó antes de que corriera el script
+        } else if (img.complete) {
+          img.remove(); // el archivo no existe: queda el marcador rayado
+        } else {
+          img.addEventListener('load', () => markLoaded(fig), { once: true });
+          img.addEventListener('error', () => img.remove(), { once: true });
+        }
+      });
+
+      function openShot(fig) {
+        const img = fig.querySelector('img');
+        if (!img || !fig.classList.contains('has-img')) return;
+        lbImg.src = img.currentSrc || img.src;
+        lbImg.alt = img.alt;
+        lbCap.textContent = img.alt;
+        lightbox.hidden = false;
+        lightbox.classList.add('is-open');
+        document.getElementById('lightbox-close').focus();
+      }
+
+      function closeShot() {
+        lightbox.classList.remove('is-open');
+        lightbox.hidden = true;
+        lbImg.removeAttribute('src');
+      }
+
+      document.addEventListener('click', (e) => {
+        const fig = e.target.closest('.shot');
+        if (fig) openShot(fig);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeShot();
+        const fig = e.target.closest && e.target.closest('.shot');
+        if (fig && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          openShot(fig);
+        }
+      });
+      lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeShot(); });
+      document.getElementById('lightbox-close').addEventListener('click', closeShot);
+
+      // ---------- Enlaces de demo/repositorio aún sin configurar ----------
+      document.querySelectorAll('a[data-link]').forEach((a) => {
+        if (a.getAttribute('href') === '#') {
+          a.removeAttribute('target');
+          a.title = 'Enlace pendiente de configurar';
+          a.addEventListener('click', (e) => e.preventDefault());
+          a.classList.add('cursor-not-allowed', 'opacity-60');
+        }
+      });
+
+      // ---------- Copiar correo ----------
+      const emailLink = document.getElementById('email-text');
+      emailLink.textContent = CONFIG.email;
+      emailLink.href = 'mailto:' + CONFIG.email;
+      document.getElementById('copy-email').addEventListener('click', async (e) => {
+        const btn = e.currentTarget;
+        try {
+          await navigator.clipboard.writeText(CONFIG.email);
+          btn.textContent = 'Copiado';
+        } catch (err) {
+          const range = document.createRange();
+          range.selectNodeContents(emailLink);
+          const sel = getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          btn.textContent = 'Seleccionado';
+        }
+        setTimeout(() => (btn.textContent = 'Copiar'), 1800);
+      });
+
+      // ---------- Formulario de contacto ----------
+      const form = document.getElementById('contact-form');
+      const status = document.getElementById('form-status');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const d = Object.fromEntries(new FormData(form));
+        if (!d.nombre.trim() || !d.email || !form.elements.email.checkValidity() || d.mensaje.trim().length < 10) {
+          status.className = 'text-sm text-neg';
+          status.textContent = 'Completa nombre, un correo válido y un mensaje de al menos 10 caracteres.';
+          return;
+        }
+        status.className = 'text-sm text-muted';
+
+        if (CONFIG.formEndpoint) {
+          const btn = form.querySelector('button[type="submit"]');
+          btn.disabled = true;
+          status.textContent = 'Enviando…';
+          try {
+            const res = await fetch(CONFIG.formEndpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+              body: JSON.stringify(d),
+            });
+            if (!res.ok) throw new Error(res.status);
+            form.reset();
+            status.className = 'text-sm text-accent';
+            status.textContent = 'Mensaje enviado. Te responderé pronto.';
+          } catch (err) {
+            status.className = 'text-sm text-neg';
+            status.textContent = 'No se pudo enviar. Escríbeme directamente a ' + CONFIG.email + '.';
+          } finally {
+            btn.disabled = false;
+          }
+          return;
+        }
+
+        const body = `${d.mensaje}\n\n— ${d.nombre} (${d.email})`;
+        location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(d.asunto + ' · ' + d.nombre)}&body=${encodeURIComponent(body)}`;
+        status.textContent = 'Se preparó el mensaje en tu programa de correo. Si no se abrió, escríbeme a ' + CONFIG.email + '.';
+      });
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
