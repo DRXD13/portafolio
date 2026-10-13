@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Dangelo Retis Cabrera · Portafolio</title>
-    <meta name="description" content="Dangelo Retis Cabrera, estudiante de Ingeniería de Sistemas: desarrollo full stack (JavaScript, PHP, Java, C#), bases de datos SQL y NoSQL, automatización con IA y soporte IT. Proyectos: planillas de RR. HH., tareo y la web del Restaurante Retis.">
+    <meta name="description" content="Dangelo Retis Cabrera, estudiante de Ingeniería de Sistemas: desarrollo full stack y Android (JavaScript, PHP, Java, Kotlin, C#), bases de datos SQL y NoSQL, automatización con IA y soporte IT. Proyectos: planillas de RR. HH., tareo web, app Android de asistencia con GPS y la web del Restaurante Retis.">
     <meta name="author" content="Dangelo Retis Cabrera">
 
     <script>
@@ -126,6 +126,17 @@
       }
       .shot.has-img .ph { display: none; }
       .shot.has-img { cursor: zoom-in; }
+
+      /* Marco de teléfono para capturas de apps móviles */
+      .phone {
+        padding: .45rem;
+        border-radius: 1.6rem;
+        background: #111916;
+        border: 1px solid rgb(var(--line));
+        box-shadow: 0 18px 36px -22px rgb(var(--accent) / .55);
+      }
+      .phone .shot { border: 0; border-radius: 1.2rem; aspect-ratio: 9 / 20; }
+      .phone .shot img { object-position: top center; }
 
       /* Cursores personalizados (si el archivo no carga, el navegador usa el de respaldo) */
       body { cursor: url('assets/cursor-normal.svg') 5 4, auto; }
@@ -442,6 +453,7 @@
             <li>TypeScript</li><li class="text-accent" aria-hidden="true">·</li>
             <li>PHP</li><li class="text-accent" aria-hidden="true">·</li>
             <li>Java</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>Kotlin</li><li class="text-accent" aria-hidden="true">·</li>
             <li>C#</li><li class="text-accent" aria-hidden="true">·</li>
             <li>Python</li><li class="text-accent" aria-hidden="true">·</li>
             <li>SQL</li><li class="text-accent" aria-hidden="true">·</li>
@@ -451,6 +463,7 @@
             <li>Spring Boot</li><li class="text-accent" aria-hidden="true">·</li>
             <li>.NET</li><li class="text-accent" aria-hidden="true">·</li>
             <li>React</li><li class="text-accent" aria-hidden="true">·</li>
+            <li>Jetpack Compose</li><li class="text-accent" aria-hidden="true">·</li>
             <li>Tailwind CSS</li><li class="text-accent" aria-hidden="true">·</li>
             <li>Bootstrap</li><li class="text-accent" aria-hidden="true">·</li>
             <li>MySQL</li><li class="text-accent" aria-hidden="true">·</li>
@@ -466,6 +479,7 @@
             <li>TypeScript</li><li class="text-accent">·</li>
             <li>PHP</li><li class="text-accent">·</li>
             <li>Java</li><li class="text-accent">·</li>
+            <li>Kotlin</li><li class="text-accent">·</li>
             <li>C#</li><li class="text-accent">·</li>
             <li>Python</li><li class="text-accent">·</li>
             <li>SQL</li><li class="text-accent">·</li>
@@ -475,6 +489,7 @@
             <li>Spring Boot</li><li class="text-accent">·</li>
             <li>.NET</li><li class="text-accent">·</li>
             <li>React</li><li class="text-accent">·</li>
+            <li>Jetpack Compose</li><li class="text-accent">·</li>
             <li>Tailwind CSS</li><li class="text-accent">·</li>
             <li>Bootstrap</li><li class="text-accent">·</li>
             <li>MySQL</li><li class="text-accent">·</li>
@@ -515,11 +530,11 @@
         <dl class="reveal self-start border-t border-line font-mono text-xs lg:col-span-3">
           <div class="flex flex-col gap-1.5 border-b border-line py-4">
             <dt class="uppercase tracking-[0.15em] text-muted">Lenguajes</dt>
-            <dd class="leading-relaxed text-ink">JavaScript · TypeScript · PHP · Java · C# · Python · SQL</dd>
+            <dd class="leading-relaxed text-ink">JavaScript · TypeScript · PHP · Java · Kotlin · C# · Python · SQL</dd>
           </div>
           <div class="flex flex-col gap-1.5 border-b border-line py-4">
             <dt class="uppercase tracking-[0.15em] text-muted">Frameworks</dt>
-            <dd class="leading-relaxed text-ink">Node.js · Express · Laravel · Spring Boot · .NET · React · Tailwind · Bootstrap</dd>
+            <dd class="leading-relaxed text-ink">Node.js · Express · Laravel · Spring Boot · .NET · React · Jetpack Compose · Tailwind · Bootstrap</dd>
           </div>
           <div class="flex flex-col gap-1.5 border-b border-line py-4">
             <dt class="uppercase tracking-[0.15em] text-muted">Bases de datos</dt>
@@ -538,12 +553,12 @@
           <div class="reveal">
             <div class="flex flex-wrap items-baseline justify-between gap-4">
               <p class="eyebrow">02 — Proyectos</p>
-              <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted"><span class="text-ink">03</span> publicados</p>
+              <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted"><span class="text-ink">04</span> publicados</p>
             </div>
             <h2 class="mt-4 max-w-3xl font-display text-3xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl">
               Sistemas que resuelven <span class="text-accent">procesos reales</span>.
             </h2>
-            <p class="mt-5 max-w-2xl leading-relaxed text-muted">Dos sistemas conectados de RR.&nbsp;HH., donde las horas del tareo alimentan directamente la planilla mensual, y la web de un restaurante que recibe pedidos y reservas por WhatsApp.</p>
+            <p class="mt-5 max-w-2xl leading-relaxed text-muted">Dos sistemas conectados de RR.&nbsp;HH., donde las horas del tareo alimentan directamente la planilla mensual; la web de un restaurante que recibe pedidos y reservas por WhatsApp, y una app Android que lleva el tareo al campo con GPS.</p>
           </div>
 
           <!-- ---------- P.01 Planillas ---------- -->
@@ -760,6 +775,101 @@
               </div>
             </div>
           </article>
+
+          <!-- ---------- P.04 TareoApp (Android) ---------- -->
+          <article class="reveal mt-16 grid gap-10 border-t border-line pt-16 lg:grid-cols-12 lg:gap-12" aria-labelledby="p-tareoapp">
+            <div class="flex flex-col lg:order-2 lg:col-span-5">
+              <p class="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs tracking-[0.2em] text-accent">P.04 — 2026 <span class="rounded-full border border-accent/40 px-2.5 py-0.5 text-[10.5px] uppercase tracking-[0.15em]">Android</span></p>
+              <h3 id="p-tareoapp" class="mt-3 font-display text-3xl font-extrabold leading-[1.05] tracking-tight sm:text-4xl">TareoApp</h3>
+              <p class="mt-3 font-mono text-xs uppercase tracking-[0.15em] text-muted">Tareo y asistencia en campo — GPS, geocerca y modo sin señal</p>
+              <p class="mt-6 leading-relaxed text-muted">
+                La versión móvil del tareo. El trabajador marca entrada y salida solo dentro del radio de su sede,
+                el tareador registra cuadrillas por DNI o código QR y el administrador ve horas, tardanzas y faltas.
+                Funciona sin señal y sincroniza solo cuando vuelve la conexión.
+              </p>
+              <ul class="mt-6 space-y-2.5 text-[15px]">
+                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Geocerca con la sede activa más cercana y radio configurable por el administrador.</li>
+                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Antifraude: bloquea GPS falso, precisión baja y marcajes repetidos.</li>
+                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Hora confiable aunque el trabajador cambie el reloj del teléfono sin señal.</li>
+                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Offline-first: guarda en el teléfono y sincroniza en segundo plano.</li>
+                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Tareo de cuadrillas por labor y lote, con escaneo de QR.</li>
+                <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>Reportes de asistencia, tardanzas, faltas y horas, exportables a CSV.</li>
+              </ul>
+
+              <!-- Calidad del proyecto -->
+              <div class="mt-6 rounded-lg border border-line p-4">
+                <p class="font-mono text-[11px] uppercase tracking-wider text-muted">Calidad</p>
+                <dl class="mt-3 grid gap-y-1.5 font-mono text-[13px] sm:grid-cols-[auto_1fr] sm:gap-x-4">
+                  <dt class="text-muted">Arquitectura</dt><dd class="text-ink">MVVM + Clean Architecture por capas</dd>
+                  <dt class="text-muted">Datos</dt><dd class="text-ink">Migraciones de Room sin pérdida de datos</dd>
+                  <dt class="text-muted">Pruebas</dt><dd class="text-ink">44 tests unitarios · tests de base de datos y migraciones</dd>
+                </dl>
+              </div>
+
+              <ul class="mt-8 flex flex-wrap gap-2" aria-label="Tecnologías">
+                <li class="tag">Kotlin</li>
+                <li class="tag">Jetpack Compose</li>
+                <li class="tag">Hilt</li>
+                <li class="tag">Room</li>
+                <li class="tag">WorkManager</li>
+                <li class="tag">CameraX · ML Kit</li>
+                <li class="tag">Coroutines · Flow</li>
+              </ul>
+              <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+                <a href="https://github.com/DRXD13/TareoApp" data-link="repo" class="link-arrow text-ink" target="_blank" rel="noopener">Ver código <span aria-hidden="true">→</span></a>
+              </div>
+              <!-- Acceso de prueba para reclutadores -->
+              <div class="mt-6 rounded-lg border border-line p-4">
+                <p class="font-mono text-[11px] uppercase tracking-wider text-muted">Usuarios demo (DNI · PIN)</p>
+                <dl class="mt-3 grid gap-y-1.5 font-mono text-[13px] sm:grid-cols-[auto_1fr] sm:gap-x-4">
+                  <dt class="text-muted">Trabajador</dt><dd class="select-all text-ink">11111111 · 1111</dd>
+                  <dt class="text-muted">Tareador</dt><dd class="select-all text-ink">22222222 · 2222</dd>
+                  <dt class="text-muted">Administrador</dt><dd class="select-all text-ink">33333333 · 3333</dd>
+                </dl>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-4 lg:order-1 lg:col-span-7">
+              <div class="grid grid-cols-3 gap-3 sm:gap-4">
+                <div class="phone">
+                  <figure class="shot">
+                    <div class="ph"><span class="font-mono text-[11px]">tareoapp-dentro.webp</span></div>
+                    <img src="assets/tareoapp-dentro.webp" alt="Trabajador dentro de la zona de la sede, a 0 metros, con sus marcajes sincronizados" loading="lazy">
+                  </figure>
+                </div>
+                <div class="phone">
+                  <figure class="shot">
+                    <div class="ph"><span class="font-mono text-[11px]">tareoapp-fuera.webp</span></div>
+                    <img src="assets/tareoapp-fuera.webp" alt="Trabajador a 49 metros, fuera del radio permitido: el botón de marcar queda bloqueado" loading="lazy">
+                  </figure>
+                </div>
+                <div class="phone">
+                  <figure class="shot">
+                    <div class="ph"><span class="font-mono text-[11px]">tareoapp-offline.webp</span></div>
+                    <img src="assets/tareoapp-offline.webp" alt="Marcaje registrado sin señal, en estado pendiente de sincronizar" loading="lazy">
+                  </figure>
+                </div>
+              </div>
+              <div class="grid grid-cols-3 gap-3 sm:gap-4">
+                <div class="phone">
+                  <figure class="shot">
+                    <div class="ph"><span class="font-mono text-[11px]">tareoapp-tareador.webp</span></div>
+                    <img src="assets/tareoapp-tareador.webp" alt="Tareo de cuadrilla: labor, lote, registro por DNI o QR y lista de trabajadores del día" loading="lazy">
+                  </figure>
+                </div>
+                <div class="phone">
+                  <figure class="shot">
+                    <div class="ph"><span class="font-mono text-[11px]">tareoapp-reportes.webp</span></div>
+                    <img src="assets/tareoapp-reportes.webp" alt="Reporte del administrador: asistencias, tardanzas, faltas, horas trabajadas y tareo por labor" loading="lazy">
+                  </figure>
+                </div>
+                <div class="flex flex-col justify-center gap-2 rounded-xl border border-dashed border-line p-3 text-center sm:p-4">
+                  <p class="font-display text-2xl font-extrabold text-accent sm:text-3xl">3</p>
+                  <p class="font-mono text-[10.5px] uppercase leading-snug tracking-wider text-muted sm:text-[11px]">roles en una sola app: trabajador, tareador y administrador</p>
+                </div>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
@@ -778,7 +888,7 @@
             <div class="card reveal rounded-xl border border-line bg-bg p-6 sm:p-7">
               <p class="font-mono text-[11px] tracking-[0.2em] text-accent">S.01</p>
               <h3 class="mt-2 font-display text-lg font-bold">Desarrollo full stack</h3>
-              <p class="mt-1 text-sm leading-relaxed text-muted">Aplicaciones web completas, de la API a la interfaz, en varios lenguajes y frameworks.</p>
+              <p class="mt-1 text-sm leading-relaxed text-muted">Aplicaciones web y Android completas, de la API a la interfaz, en varios lenguajes y frameworks.</p>
               <ul class="mt-5 flex flex-wrap gap-1.5">
                 <li class="tag tag-sm">JavaScript · TypeScript</li>
                 <li class="tag tag-sm">PHP · Java · C#</li>
@@ -787,6 +897,7 @@
                 <li class="tag tag-sm">Spring Boot</li>
                 <li class="tag tag-sm">.NET</li>
                 <li class="tag tag-sm">React</li>
+                <li class="tag tag-sm">Kotlin · Jetpack Compose</li>
                 <li class="tag tag-sm">Tailwind · Bootstrap</li>
                 <li class="tag tag-sm">APIs REST · JWT</li>
                 <li class="tag tag-sm">Git · GitHub</li>
